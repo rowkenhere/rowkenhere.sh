@@ -38,18 +38,6 @@ body{
 }
 .volume-btn span{font-size:20px;}
 
-  // 🔊 unlock music on first interaction (browser-safe)
-function unlockAudio(){
-  music.play().catch(()=>{});
-  document.removeEventListener("click", unlockAudio);
-  document.removeEventListener("mousemove", unlockAudio);
-  document.removeEventListener("touchstart", unlockAudio);
-}
-
-document.addEventListener("click", unlockAudio);
-document.addEventListener("mousemove", unlockAudio);
-document.addEventListener("touchstart", unlockAudio);
-
 /* ===== CYBER TAG ===== */
 .cyber-tag{
   position:fixed;
@@ -199,7 +187,7 @@ body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,0.65);backd
   <span>Cyber Security Expert</span>
 </div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" autoplay loop>
   <source src="https://cdn.discordapp.com/attachments/1281135781900980248/1473377215948390632/Magical-Moments-chosic.com_.mp3?ex=6995fcf6&is=6994ab76&hm=d342299a56ab57cc6afcecf82a03ceb4ea9e3f6cf870a550704d34a2161a6ca3&" type="audio/mpeg">
 </audio>
 
@@ -239,7 +227,7 @@ body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,0.65);backd
 <script>
 // particles
 const container=document.getElementById("particles");
-for(let i=0;i<60;i++){ 
+for(let i=0;i<60;i++){
   const s=document.createElement("span");
   s.style.left=Math.random()*100+"vw";
   s.style.animationDuration=(5+Math.random()*8)+"s";
