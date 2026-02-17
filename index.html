@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sir Rowken</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif;}
+
+body{
+  height:100vh;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnQ-7NcVQbRkClrlv2UISJoFY67ENtnU5QDIfjBq6Hjis2AXJfplTK2Bk&s=10");
+  background-size:cover;
+  background-position:center;
+}
+
+/* 🔊 volume button */
+.volume-btn{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:1000;
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.25);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 12px rgba(255,255,255,0.25), inset 0 0 6px rgba(255,255,255,0.15);
+}
+.volume-btn span{font-size:20px;}
+
+/* ===== CYBER TAG ===== */
+.cyber-tag{
+  position:fixed;
+  top:70px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:2;
+  padding:12px 26px;
+  border-radius:14px;
+  overflow:hidden;
+  background:linear-gradient(135deg,rgba(0,0,0,0.9),rgba(20,20,20,0.95));
+  border:1px solid rgba(0,255,170,0.35);
+  box-shadow:
+    0 0 18px rgba(0,255,170,0.35),
+    0 0 35px rgba(140,0,255,0.25),
+    inset 0 0 18px rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+}
+
+.cyber-tag span{
+  position:relative;
+  z-index:2;
+  font-weight:700;
+  letter-spacing:.5px;
+  color:#fff;
+  white-space:nowrap;
+  display:inline-block;
+  text-shadow:0 0 6px #00ffaa,0 0 12px #8b5cf6;
+}
+
+.cyber-tag canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:.35;
+}
+
+/* mouse glow */
+.cursor-glow{
+  position:fixed;
+  width:220px;height:220px;border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,0.18),transparent 60%);
+  filter:blur(20px);
+  z-index:0;
+  transform:translate(-50%,-50%);
+}
+
+/* intro */
+.intro{position:fixed;inset:0;background:black;display:flex;align-items:center;justify-content:center;z-index:999;animation:introFade 3.2s forwards;}
+@keyframes introFade{0%,80%{opacity:1;}100%{opacity:0;visibility:hidden;}}
+.glitch{font-size:48px;font-weight:800;color:white;text-shadow:0 0 10px white,2px 0 red,-2px 0 cyan;animation:glitch 0.25s infinite;}
+@keyframes glitch{0%{transform:translate(0);}25%{transform:translate(2px,-2px);}50%{transform:translate(-2px,2px);}75%{transform:translate(1px,-1px);}100%{transform:translate(0);}}
+
+body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(2px);z-index:0;}
+
+/* particles */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.particles span{position:absolute;width:3px;height:3px;background:white;border-radius:50%;animation:fall linear infinite;}
+@keyframes fall{from{transform:translateY(-10vh);}to{transform:translateY(110vh);}}
+
+/* fog */
+.fog{position:fixed;bottom:-40px;left:0;width:100%;height:160px;background:radial-gradient(ellipse at bottom,rgba(255,255,255,0.08),rgba(255,255,255,0.02),transparent);filter:blur(20px);z-index:0;}
+
+/* ===== CARD ===== */
+.card{
+  position:relative;
+  width:340px;
+  padding:42px 36px;
+  border-radius:26px;
+  text-align:center;
+  z-index:1;
+  opacity:0;
+  transform:scale(0.9);
+  animation:cardIn 0.8s ease 2.6s forwards;
+  background:rgba(20,20,20,0.55);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 0 60px rgba(255,255,255,0.08), inset 0 0 25px rgba(255,255,255,0.03);
+}
+@keyframes cardIn{to{opacity:1;transform:scale(1);}}
+
+/* 🟢 ONLINE DOT */
+.online-dot{
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#00ff66;
+  z-index:3;
+  box-shadow:0 0 8px #00ff66,0 0 16px #00ff66,0 0 26px #00ff66;
+  animation:pulseOnline 2s infinite;
+}
+@keyframes pulseOnline{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}
+
+/* 👁️ VIEWS BADGE */
+.views-badge{
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  background:rgba(0,0,0,0.55);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(6px);
+  box-shadow:0 0 8px rgba(0,0,0,0.35);
+}
+.views-badge img{
+  width:15px;
+  height:15px;
+  filter:brightness(0) invert(1);
+}
+
+/* avatar */
+.avatar-wrap{display:inline-block;padding:4px;border-radius:50%;margin-bottom:18px;background:radial-gradient(circle,rgba(255,255,255,0.95),rgba(255,255,255,0.2));box-shadow:0 0 20px rgba(255,255,255,0.7),0 0 45px rgba(255,255,255,0.25);}
+.avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;}
+
+.name-row{display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;}
+.name{font-size:28px;font-weight:800;text-shadow:0 0 8px rgba(255,255,255,0.9),0 0 18px rgba(255,255,255,0.6);}
+.verify{width:20px;height:20px;filter:drop-shadow(0 0 6px #3b82f6) drop-shadow(0 0 12px #3b82f6);}
+
+.status{display:flex;align-items:center;justify-content:center;gap:6px;opacity:.85;margin-bottom:28px;font-size:15px;}
+.status img{width:14px;filter:brightness(0) invert(1);}
+
+.links a{position:relative;overflow:hidden;display:block;padding:13px;margin:10px 0;border-radius:14px;text-decoration:none;color:white;font-weight:600;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);box-shadow:0 0 12px rgba(255,255,255,0.25), inset 0 0 8px rgba(255,255,255,0.08);transition:.25s;}
+.links a:hover{transform:translateY(-3px) scale(1.02);background:rgba(255,255,255,0.18);}
+</style>
+</head>
+
+<body>
+
+<div class="volume-btn" id="volumeBtn"><span id="volumeIcon">🔊</span></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="intro"><div class="glitch">Rowken Here</div></div>
+
+<div class="cyber-tag">
+  <canvas id="matrixTag"></canvas>
+  <span>Cyber Security Expert</span>
+</div>
+
+<audio id="bgMusic" autoplay loop>
+  <source src="https://cdn.discordapp.com/attachments/1281135781900980248/1473377215948390632/Magical-Moments-chosic.com_.mp3?ex=6995fcf6&is=6994ab76&hm=d342299a56ab57cc6afcecf82a03ceb4ea9e3f6cf870a550704d34a2161a6ca3&" type="audio/mpeg">
+</audio>
+
+<div class="particles" id="particles"></div>
+<div class="fog"></div>
+
+<div class="card">
+  <div class="online-dot"></div>
+
+  <!-- 👁️ Views badge (fixed) -->
+  <div class="views-badge">
+    <img src="https://cdn-icons-png.flaticon.com/512/709/709612.png">
+    <span>1.2m</span>
+  </div>
+
+  <div class="avatar-wrap">
+    <img class="avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5RcPY-EJMIqcpS5NrGRcJuo0z9fm8YwL381EZqpVEYPs79ynH">
+  </div>
+
+  <div class="name-row">
+    <div class="name">Sir Rowken</div>
+    <img class="verify" src="https://static.vecteezy.com/system/resources/thumbnails/047/309/918/small_2x/verified-badge-profile-icon-png.png">
+  </div>
+
+  <div class="status">
+    <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png">
+    <span>United States</span>
+  </div>
+
+  <div class="links">
+    <a href="https://api.whatsapp.com/send/?phone=16728859818&text=Hello+Boss+Rowken.&type=phone_number&app_absent=0" target="_blank">WhatsApp</a>
+    <a href="https://www.instagram.com/sir.rowken?igsh=MTN0MGx4bW1xeXZhOA==" target="_blank">Instagram</a>
+    <a href="https://discord.gg/AV8cfE8S9" target="_blank">Discord</a>
+  </div>
+</div>
+
+<script>
+// particles
+const container=document.getElementById("particles");
+for(let i=0;i<60;i++){ 
+  const s=document.createElement("span");
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(5+Math.random()*8)+"s";
+  s.style.animationDelay=Math.random()*10+"s";
+  container.appendChild(s);
+}
+
+// mouse glow
+const glow=document.getElementById("cursorGlow");
+let mx=0,my=0,gx=0,gy=0;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;});
+function animateGlow(){
+  gx+=(mx-gx)*0.12;
+  gy+=(my-gy)*0.12;
+  glow.style.left=gx+"px";
+  glow.style.top=gy+"px";
+  requestAnimationFrame(animateGlow);
+}
+animateGlow();
+
+// volume toggle
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("volumeBtn");
+const icon=document.getElementById("volumeIcon");
+let isMuted=false;
+btn.addEventListener("click",()=>{
+  isMuted=!isMuted;
+  music.muted=isMuted;
+  icon.textContent=isMuted?"🔇":"🔊";
+});
+
+// matrix tag
+const canvas=document.getElementById("matrixTag");
+const ctx=canvas.getContext("2d");
+function resizeMatrix(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+resizeMatrix();window.addEventListener("resize",resizeMatrix);
+const letters="01アイウエオカキクケコ";
+const fontSize=14;
+let columns=Math.floor(canvas.width/fontSize);
+let drops=Array(columns).fill(1);
+function drawMatrix(){
+  ctx.fillStyle="rgba(0,0,0,0.15)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00ffaa";
+  ctx.font=fontSize+"px monospace";
+  for(let i=0;i<drops.length;i++){
+    const text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height&&Math.random()>0.975){drops[i]=0;}
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix,50);
+</script>
+
+</body>
+</html>
