@@ -1,1 +1,59 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Sir Rowken Profile</title>\n</head>\n<body>\n    <h1>Welcome to Sir Rowken's Profile Page</h1>\n    <p>Current Date and Time: 2026-02-17 20:09:44 UTC</p>\n    <p>About Sir Rowken:</p>\n    <p>Sir Rowken is known for...</p>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sir Rowken Cyber Aesthetic</title>
+    <style>
+        body {
+            background: #0f0f0f;
+            color: #00ff99;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            text-shadow: 0 0 10px #00ff99;
+        }
+        .profile-card {
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid #00ff99;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0, 255, 153, 0.7);
+            position: relative;
+        }
+        .link {
+            color: #00ffcc;
+            text-decoration: none;
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Sir Rowken's Cyber Aesthetic</h1>
+    <div class="profile-card">
+        <h2>Profile</h2>
+        <p>Name: Sir Rowken</p>
+        <p>Role: Cyber Aesthetic Developer</p>
+        <a class="link" href="https://yourlink.com">Your Link</a>
+    </div>
+    <div class="particles" id="particles-js"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('callback - particles.js config loaded');
+        });
+    </script>
+</body>
+</html>
